@@ -1,0 +1,289 @@
+
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <!--===============================================================================================-->
+  <link rel="stylesheet" href="meta-inf/css/style.css">
+  <!--===============================================================================================-->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <!--===============================================================================================-->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--===============================================================================================-->
+  <link rel="stylesheet" href="meta-inf/css/font-awesome.min.css">
+  <!--===============================================================================================-->
+  <link rel="icon" type="image/png" href="meta-inf/icons/favicon.ico"/>
+  <!--===============================================================================================-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <title>Login YPanel</title>
+</head>
+
+<body  data-spy="scroll" data-target=".site-navbar-target" oncontextmenu="return false"
+       ondragstart="return false" onmouseover="window.status='..message perso .. '; return true;"
+       onload=" window.history.pushState('object or string', 'Title', '/ypanel/index.html')";
+>
+
+  <div class="main" id='main'>
+	  	<div class="img " style="background-image: url(meta-inf/img/bg-01.jpg); height:120px;">
+          <p class="sign" id='text1' align="center">Login</p>
+      </div>
+      <!--===============================================================================================-->
+      <div id='formL' active='true'><!--Form Login-->
+      <form class="form1" id='Lform' autocomplete="false"  >
+        <input type="hidden" autocomplete="false">
+        <div style="visibility: hidden;display:none;" id="e1">
+            <p style='color:white; font-size:15px;margin-left: 80px!important;margin-right: 80px !important;text-align: center;width: auto; padding: 13px; border-radius:0.55em; text-align: center;text-shadow: 0px 0px 3px rgba(15, 30, 100, 0.23);' id='ername'> </p>
+        </div>
+        <input class="un " type="text" align="center" id='LUser' name='LUser' placeholder="Usuario" autocomplete="off">
+        <input class="pass" type="password" align="center" id='LPwd' name='LPwd' placeholder="Senha" autocomplete="off" required minlength="8">
+        <br>
+        <a class="submit" align="center" onclick='_login();' id='btn1' name='btn1'>Entrar</a>
+        <p class="forgot" align="center"><a onclick="document.getElementById('Lform').reset();" id='cancel1'>Cancelar</a></p>
+		    <p class="forgot" align="center"><a onclick="recovery();" id='rec1'>Esqueceu Senha/Usuario?</a></p>
+        <p class="forgot" align="center"><a onclick="signin();" id='cad1'>Cadastrar Usuario?</a></p>
+        </form>
+     </div>
+     <!--===============================================================================================-->
+     <div id="formC" style="visibility: hidden;display:none;"><!--Form  SignIn-->
+       <form class="form1"  autocomplete="false" id='Cform' name='Cform'>
+         <input type="hidden" autocomplete="false">
+         <div style='visibility: hidden;display:none;' id='s1'>
+             <p style='color:white; font-size:15px ;margin-left: 80px!important ;margin-right: 80px !important;text-align: center;width: auto; padding: 13px; border-radius:0.55em; text-align: center;text-shadow: 0px 0px 3px rgba(15, 30, 100, 0.23);' id='s1nm'> </p>
+         </div>
+         <input class="un " type="text" align="center" id='CName' name='Cname' placeholder="Nome">
+         <input class="pass" type="text" align="center"id='CUser' name='CUser' placeholder="Usuario">
+         <input class="un " type="text" align="center"id='Cmail' name='Cmail' placeholder="E-mail" required pattern="[^]+@[^]+[.][a-z]{2,63}$">
+         <input class="pass" type="password" align="center" id='Cpwd1' name='Cpwd1' placeholder="Senha" required minlength="8">
+         <input class="pass" type="password" align="center"id='Cpwd2' name='Cpwd2' placeholder="Confirmacao de Senha" required minlength="8">
+         <br>
+         <a class="submit" align="center" onclick='_signin();' id='btn2'>Cadastrar</a>
+         <p class="forgot" align="center"><a onclick="document.getElementById('Cform').reset();" id='cancel2'>Cancelar</a></p>
+         <p class="forgot" align="center"><a onclick="recovery();" id='rec2'>Esqueceu Senha/Usuario?</a></p>
+         <p class="forgot" align="center"><a onclick="login();" id='log2'>Login?</a></p>
+           <br>
+      </form>
+    </div>
+     <!--===============================================================================================-->
+     <div id="formR" style="visibility: hidden;display:none;"><!--Form  Recover-->
+       <form class="form1" id='Rform' name='Rform' autocomplete="off" >
+         <input type="hidden" autocomplete="false">
+         <div style='visibility: hidden;display:none;' id='e3'>
+             <p style='color:white; font-size:15px ;margin-left: 80px!important ;margin-right: 80px !important;text-align: center;width: auto; padding: 13px; border-radius:0.55em; text-align: center;text-shadow: 0px 0px 3px rgba(15, 30, 100, 0.23);' id='errc'> </p>
+         </div>
+         <input class="pass" type="text" align="center" id='Ruser' name='Ruser' placeholder="Usuario ou E-mail" >
+         <input class="un " type="text" align="center"id='Rmail' name='Rmail' placeholder="E-mail" required pattern="[^]+@[^]+[.][a-z]{2,63}$">
+         <br>
+         <a class="submit" align="center" onclick='_recover();' id='btn3'>Recuperar</a>
+         <p class="forgot" align="center"><a onclick="document.getElementById('Rform').reset();" id='cancel3'>Cancelar</a></p>
+         <p class="forgot" align="center"><a onclick="signin();" id='sig3'>Cadastrar</a></p>
+         <p class="forgot" align="center"><a onclick="login();" id='log3'>Login</a></p>
+          <br>
+      </form>
+    </div>
+     <!--===============================================================================================-->
+    </div>
+</body>
+<script type="text/javascript">
+function signin()
+{
+  document.getElementById('text1').innerHTML= 'Cadastrar';
+
+   $("#formC").css("display", "block");
+   $("#formC").removeClass("hidden").addClass("active");
+   $("#formC").css("visibility", "visible");
+
+   $("#formL").css("display", "none");
+   $("#formL").css("visibility", "hidden");
+   $("#formL").removeClass("active").addClass("hidden");
+
+   $("#formR").css("display", "none");
+   $("#formR").css("visibility", "hidden");
+   $("#formR").removeClass("active").addClass("hidden");
+}
+
+function recovery()
+{
+    document.getElementById('text1').innerHTML= 'Recuperar';
+    $("#formC").css("display", "none");
+    $("#formC").css("visibility", "hidden");
+    $("#formC").removeClass("active").addClass("hidden");
+
+    $("#formL").css("display", "none");
+    $("#formL").css("visibility", "hidden");
+    $("#formL").removeClass("active").addClass("hidden");
+
+    $("#formR").css("display", "block");
+    $("#formR").removeClass("hidden").addClass("active");
+    $("#formR").css("visibility", "visible");
+
+}
+
+function login()
+{
+  document.getElementById('text1').innerHTML= 'Login';
+  $("#formC").css("display", "none");
+  $("#formC").css("visibility", "hidden");
+  $("#formC").removeClass("active").addClass("hidden");
+
+  $("#formL").css("display", "block");
+  $("#formL").removeClass("hidden").addClass("active");
+  $("#formL").css("visibility", "visible");
+
+  $("#formR").css("display", "none");
+  $("#formR").css("visibility", "hidden");
+  $("#formR").removeClass("active").addClass("hidden");
+}
+</script>
+<script type="text/javascript">
+function _login()
+{
+  document.getElementById('btn1').disabled= true;
+  event.preventDefault();
+  const form = document.getElementById('Lform');
+  var  formattedFormData = new FormData(form);
+  formattedFormData.append('code', '1000');
+  postData(formattedFormData);
+
+  async function postData(formattedFormData)
+  {
+         const response = await fetch('servlet/httpd.server.php',{
+            method: 'POST',
+            body: formattedFormData
+          });
+  var data = await response.text();
+  if(data)
+  {
+      var obj = jQuery.parseJSON(data);
+      switch (obj.id)
+      {
+        case 10: case '10':
+            $('#main').css("min-height",'550px');
+            $("#e1").css("display", "block");
+            $("#e1").removeClass("hidden").addClass("active");
+            $("#e1").css("visibility", "visible");
+            $("#ername").css("background-color","#DC143C");
+            document.getElementById('ername').innerHTML=obj.msg;
+        break;
+        case 20: case '20':
+          $('#main').css("min-height",'520px');    
+          $("#e1").css("display", "block");
+          $("#e1").removeClass("hidden").addClass("active");
+          $("#e1").css("visibility", "visible");
+          $("#ername").css("background-color","#3CB371");
+          document.getElementById('ername').innerHTML='Login realizado com sucesso';
+          document.getElementById('Lform').reset();   
+          sessionStorage.setItem('session_id',obj.session);
+          //console.log(obj.session);
+          setTimeout(function() 
+          {
+             window.location.href = 'dash-inf/index.html';
+          }, 1200);      
+        break;
+      }
+  }
+ 
+  console.log(data);
+  }
+}
+</script>
+<script type="text/javascript">
+function _recover()
+{
+    document.getElementById('btn3').disabled= true;
+    event.preventDefault();
+    const form = document.getElementById('Rform');
+    var  formattedFormData = new FormData(form);
+    formattedFormData.append('code', '3000');
+    postData(formattedFormData);
+
+    async function postData(formattedFormData)
+    {
+          const response = await fetch('servlet/httpd.server.php',
+          {
+            method: 'POST',
+            body: formattedFormData
+          });
+          var data = await response.text();
+          if(data)
+          {
+              //var obj = JSON.parse(data);
+              var obj =jQuery.parseJSON(data);
+              switch (obj.id)
+              {
+                  case 10: case '10':
+                    $('#main').css("min-height",'520px');
+                    $("#e3").css("display", "block");
+                    $("#e3").removeClass("hidden").addClass("active");
+                    $("#e3").css("visibility", "visible");
+                    $("#errc").css("background-color","#DC143C");
+                    document.getElementById('errc').innerHTML=obj.msg;
+                  break;
+                  case 20: case '20':
+                    $("#e3").css("display", "block");
+                    $("#e3").removeClass("hidden").addClass("active");
+                    $("#e3").css("visibility", "visible");
+                    $("#errc").css("background-color","#3CB371");
+                    document.getElementById('errc').innerHTML=obj.msg;
+                    document.getElementById('Rform').reset();
+                  break;
+                }
+            }
+            console.log(data);
+    }
+}
+</script>
+<script type="text/javascript">
+function _signin()
+{
+  document.getElementById('btn2').disabled= true;
+  event.preventDefault();
+  const form = document.getElementById('Cform');
+  var  formattedFormData = new FormData(form);
+  formattedFormData.append('code', '2000');
+  postData(formattedFormData);
+
+  async function postData(formattedFormData)
+  {
+         const response = await fetch('servlet/httpd.server.php',{
+          method: 'POST',
+          body: formattedFormData
+  });
+  var data = await response.text();
+  if(data)
+  {
+      var obj = jQuery.parseJSON(data);
+      switch (obj.id)
+      {
+        case 10: case '10':
+            //alert(obj.msg);
+            $("#s1").css("display", "block");
+            $("#s1").removeClass("hidden").addClass("active");
+            $("#s1").css("visibility", "visible");
+            $("#s1nm").css("background-color","#DC143C");
+            document.getElementById('s1nm').innerHTML=obj.msg;
+        break;
+        case 20: case '20':
+            $("#s1").css("display", "block");
+            $("#s1").removeClass("hidden").addClass("active");
+            $("#s1").css("visibility", "visible");
+            $("#s1nm").css("background-color","#3CB371");
+            document.getElementById('s1nm').innerHTML=obj.msg;
+            document.getElementById('Cform').reset();
+        break;
+        default:
+          //alert(obj.msg);
+          //document.getElementById('Cform').reset();
+        break;
+      }
+  }
+    console.log(data);
+    document.getElementById('btn2').enabled=TRUE;
+    document.getElementById('btn2').disabled= false;
+    $("#s1").css("display", "none");
+    $("#s1").removeClass("active").addClass("hidden");
+    $("#s1").css("visibility", "hidden");
+  }
+}
+</script>
+</html>
